@@ -10,7 +10,7 @@ import getExerciseName from '../utils/getExerciseName'
 
 const HomeScreen = ({ navigation }) => {
 
-    const { menuVisible, toggleMenu, schedule, nextSession, sessions } = useContext(Context);
+    const { menuVisible, toggleMenu, schedule, nextSession, sessions, updateNextSession } = useContext(Context);
 
     if (menuVisible) {
         return <SettingsMenu navigation={navigation} toggleMenu={toggleMenu} />
@@ -42,19 +42,22 @@ const HomeScreen = ({ navigation }) => {
 
     }
 
-    const sessionName = getExerciseName(schedule[nextSession], sessions);
-
     return (
 
         <>
             <CustomHeader navigation={navigation} />
 
-            <View style={styles.container}>
+            <View style={[styles.container, { justifyContent: 'center', paddingTop: 0 }]}>
 
-                <View style={styles.innerContainer}>
+                <View style={[styles.innerContainer, { justifyContent: 'center', gap: 20, }]}>
                     <Text style={styles.heading}>Next session</Text>
-                    <Text style={{ textAlign: 'center' }}>{sessionName}</Text>
-                    <StartButton />
+                    <StartButton navigation={navigation} />
+                    <Button
+                        title='Skip session'
+                        onPress={() => {
+                            updateNextSession(true);
+                        }}
+                    />
                 </View>
 
                 <StatusBar style="light" />

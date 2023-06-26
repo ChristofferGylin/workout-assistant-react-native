@@ -18,6 +18,7 @@ import Schedule from './screens/Schedule';
 import SessionDetailsScheduleScreen from './screens/SessionDetailsScheduleScreen';
 import AddExercise from './screens/AddExercise';
 import ConFirmAddExercise from './screens/ConfirmAddExercise';
+import NextSessionDetailsScreen from './screens/NextSessionDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -121,6 +122,27 @@ export default function App() {
                       onPress={() => {
                         navigation.goBack();
                         navigation.navigate('Sessions')
+                      }}
+                    />
+                  )
+
+                },
+
+              })}
+            />
+            <Stack.Screen
+              name='NextSessionDetails'
+              component={NextSessionDetailsScreen}
+              options={({ navigation, route }) => ({
+                title: route.params.title,
+                headerLeft: () => {
+
+                  return (
+                    <Button
+                      title='Close'
+                      onPress={() => {
+                        navigation.goBack();
+
                       }}
                     />
                   )

@@ -209,6 +209,36 @@ const ContextProvider = ({ children }) => {
 
     };
 
+    const updateNextSession = (add) => {
+
+        setNextSession(next => {
+
+            let newNext = next;
+
+            if (add) {
+                newNext++;
+
+                if (newNext > schedule.length - 1) {
+
+                    newNext = 0;
+
+                }
+            } else {
+
+                if (newNext > schedule.length - 1) {
+
+                    newNext--;
+
+                }
+
+            }
+
+            return newNext;
+
+        })
+
+    }
+
     return (
         <Context.Provider value={{
             menuVisible,
@@ -225,6 +255,7 @@ const ContextProvider = ({ children }) => {
             schedule,
             addToSession,
             deleteExercise,
+            updateNextSession,
 
         }}
         >
