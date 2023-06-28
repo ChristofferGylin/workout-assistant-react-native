@@ -13,9 +13,9 @@ const NextSessionDetailsScreen = ({ navigation, route }) => {
     const [session, setSession] = useState(undefined);
 
     const handleClickDone = () => {
-        addToSchedule(session.id);
+
         navigation.goBack();
-        navigation.navigate('Sessions');
+        navigation.navigate('WorkoutReady', { first: true });
     };
 
     const handleClickDel = () => {

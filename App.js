@@ -19,6 +19,11 @@ import SessionDetailsScheduleScreen from './screens/SessionDetailsScheduleScreen
 import AddExercise from './screens/AddExercise';
 import ConFirmAddExercise from './screens/ConfirmAddExercise';
 import NextSessionDetailsScreen from './screens/NextSessionDetailsScreen';
+import WorkoutReady from './screens/WorkoutReady';
+import WorkoutActive from './screens/WorkoutActive';
+import WorkoutResults from './screens/WorkoutResults';
+import WorkoutReps from './screens/WorkoutReps';
+import WorkoutPause from './screens/WorkoutPause';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +57,26 @@ export default function App() {
             <Stack.Screen
               name='History'
               component={HistoryScreen}
+            />
+            <Stack.Screen
+              name='WorkoutReady'
+              component={WorkoutReady}
+            />
+            <Stack.Screen
+              name='WorkoutActive'
+              component={WorkoutActive}
+            />
+            <Stack.Screen
+              name='WorkoutPause'
+              component={WorkoutPause}
+            />
+            <Stack.Screen
+              name='WorkoutReps'
+              component={WorkoutReps}
+            />
+            <Stack.Screen
+              name='WorkoutResults'
+              component={WorkoutResults}
             />
 
 

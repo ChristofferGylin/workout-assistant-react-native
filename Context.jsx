@@ -79,6 +79,8 @@ const ContextProvider = ({ children }) => {
     const [sessions, setSessions] = useState([]);
     const [schedule, setSchedule] = useState(defaultSchedule);
     const [nextSession, setNextSession] = useState(0);
+    const [thisSession, setThisSession] = useState();
+    const [history, setHistory] = useState([]);
 
     useEffect(() => {
 
@@ -88,6 +90,7 @@ const ContextProvider = ({ children }) => {
             getData('nextSession', setNextSession);
             getData('sessions', setSessions, defaultSessions);
             getData('userExercises', setUserExercises);
+            getData('history', setHistory);
         }
 
     }, [])
@@ -233,9 +236,27 @@ const ContextProvider = ({ children }) => {
 
             }
 
+            storeData('nextSession', newNext);
+
             return newNext;
 
         })
+
+    }
+
+    const addToHistory = (post) => {
+
+        setHistory(oldHistory => {
+            const newHistory = [...oldHistory, post];
+            storeData('history', newHistory);
+            return newHistory;
+        })
+
+    }
+
+    const updateThisSession = (session) => {
+
+        setThisSession(session);
 
     }
 
@@ -256,6 +277,10 @@ const ContextProvider = ({ children }) => {
             addToSession,
             deleteExercise,
             updateNextSession,
+            updateThisSession,
+            thisSession,
+            history,
+            addToHistory,
 
         }}
         >

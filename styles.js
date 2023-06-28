@@ -13,6 +13,15 @@ const styles = StyleSheet.create({
         alignItems: 'start',
         padding: 10
     },
+    workoutContainer: {
+        justifyContent: 'center',
+        paddingTop: 0,
+        backgroundColor: 'rgb(249 115 22)',
+    },
+    workoutInputContainer: {
+        justifyContent: 'center',
+        gap: 20,
+    },
     inputTitle: {
         color: 'gray',
     },
@@ -105,6 +114,16 @@ const styles = StyleSheet.create({
         borderBottomColor: 'rgb(203 213 225)',
         borderBottomWidth: 1,
         padding: 10
+    },
+    exerciseDetailResult: {
+
+        gap: 8,
+        borderBottomColor: 'rgb(203 213 225)',
+        borderBottomWidth: 1,
+        padding: 10
+    },
+    workoutTextColor: {
+        color: 'rgb(255 237 213)',
     }
 });
 
