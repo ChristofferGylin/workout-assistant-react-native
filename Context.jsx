@@ -38,12 +38,16 @@ const getData = async (key, setter, defaultValue) => {
 
 }
 
-const storeData = async (key, value) => {
+const storeData = async (key, value, callback) => {
 
     try {
 
         const jsonValue = JSON.stringify(value);
         await AsyncStorage.setItem(key, jsonValue);
+
+        if (callback) {
+            callback();
+        }
 
     } catch (e) {
 
@@ -250,36 +254,8 @@ const ContextProvider = ({ children }) => {
         setHistory(oldHistory => {
             const newHistory = [...oldHistory, post];
 
-            newHistory.sort((a, b) => {
+            storeData('history', newHistory, () => { getData('history', setHistory) });
 
-                if (a.startTime < b.startTime) {
-
-                    return 1;
-
-                } else if (a.startTime > b.startTime) {
-
-                    return -1;
-
-                } else {
-
-                    return 0;
-
-                }
-
-            })
-
-            for (let i = 0; i < newHistory.length; i++) {
-
-                if (!newHistory[i].id) {
-
-                    newHistory[i].id = uuid.v4();
-
-                }
-
-            }
-
-            storeData('history', newHistory);
-            return newHistory;
         })
 
     }

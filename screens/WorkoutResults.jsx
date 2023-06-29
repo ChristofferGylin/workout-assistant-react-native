@@ -26,8 +26,6 @@ const WorkoutResults = ({ navigation, route }) => {
 
         React.useCallback(() => {
 
-            console.log('create result');
-
             const newResult = {
                 id: uuid.v4(),
                 name: thisSession.session.name,

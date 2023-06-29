@@ -39,7 +39,7 @@ const HistoryScreen = ({ navigation }) => {
                 <View style={styles.innerContainer}>
                     <Text style={styles.heading}>Finished sessions</Text>
                     <FlatList
-                        data={history}
+                        data={history.reverse()}
                         renderItem={({ item }) => (
 
                             <SessionItemHistory title={item.name} id={item.id} navigation={navigation} startTime={item.startTime} totalTime={item.totalTime} />
