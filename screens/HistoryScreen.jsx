@@ -5,11 +5,14 @@ import { useContext, useEffect, useState } from 'react';
 import CustomHeader from '../components/CustomHeader';
 import { Context } from '../Context';
 import SessionItemHistory from '../components/SessionItemHistory';
+import SettingsMenu from '../components/SettingsMenu';
 
 const HistoryScreen = ({ navigation }) => {
-    const { history } = useContext(Context);
+    const { history, toggleMenu, menuVisible } = useContext(Context);
 
-
+    if (menuVisible) {
+        return <SettingsMenu navigation={navigation} toggleMenu={toggleMenu} />
+    }
 
     if (history.length === 0) {
 
