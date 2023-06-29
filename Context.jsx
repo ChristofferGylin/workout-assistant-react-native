@@ -267,9 +267,6 @@ const ContextProvider = ({ children }) => {
     }
 
     const increaseWeight = (sessionId, exerciseId) => {
-        console.log('increasing weight')
-        console.log('sessionId:', sessionId)
-        console.log('exerciseId:', exerciseId)
 
         setSessions(oldSessions => {
 
@@ -294,7 +291,7 @@ const ContextProvider = ({ children }) => {
                     }
 
                     if (foundIt) {
-                        console.log('found it!')
+
                         break;
 
                     }

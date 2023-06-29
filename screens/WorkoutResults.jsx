@@ -58,9 +58,7 @@ const WorkoutResults = ({ navigation, route }) => {
                     exercise.sets.push(set);
 
                     if (thisSession.results.exercises[i].setsReps[j].reps < target) {
-                        console.log('nope');
-                        console.log(`thisSession.results.exercises[${i}].setsReps[${j}].reps:`, thisSession.results.exercises[i].setsReps[j].reps);
-                        console.log(`target:`, target);
+
                         setCongratulations(false);
                         allTargetsMet = false;
 
