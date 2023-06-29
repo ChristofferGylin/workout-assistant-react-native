@@ -100,6 +100,7 @@ const WorkoutReady = ({ navigation, route }) => {
         <View style={[styles.container, styles.workoutContainer]}>
 
             <View style={[styles.innerContainer, styles.workoutInputContainer]}>
+                <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>Get ready!</Text>
                 <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].name}</Text>
                 {thisSession.session.exercises[thisSession.currentExercise].weight && <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].weight} kg</Text>}
                 <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].reps} reps</Text>

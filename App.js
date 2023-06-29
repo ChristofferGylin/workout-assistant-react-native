@@ -24,6 +24,7 @@ import WorkoutActive from './screens/WorkoutActive';
 import WorkoutResults from './screens/WorkoutResults';
 import WorkoutReps from './screens/WorkoutReps';
 import WorkoutPause from './screens/WorkoutPause';
+import SessionDetailsHistoryScreen from './screens/SessionDetailsHistoryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -147,6 +148,27 @@ export default function App() {
                       onPress={() => {
                         navigation.goBack();
                         navigation.navigate('Sessions')
+                      }}
+                    />
+                  )
+
+                },
+
+              })}
+            />
+            <Stack.Screen
+              name='SessionDetailsHistory'
+              component={SessionDetailsHistoryScreen}
+              options={({ navigation, route }) => ({
+                title: route.params.title,
+                headerLeft: () => {
+
+                  return (
+                    <Button
+                      title='Close'
+                      onPress={() => {
+                        navigation.goBack();
+
                       }}
                     />
                   )

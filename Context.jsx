@@ -3,6 +3,7 @@ import { defaultExercises } from "./data/exercises";
 import { defaultSessions } from "./data/sessions";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultSchedule from "./data/defaultSchedule";
+import uuid from 'react-native-uuid';
 
 const Context = createContext()
 
@@ -248,6 +249,35 @@ const ContextProvider = ({ children }) => {
 
         setHistory(oldHistory => {
             const newHistory = [...oldHistory, post];
+
+            newHistory.sort((a, b) => {
+
+                if (a.startTime < b.startTime) {
+
+                    return 1;
+
+                } else if (a.startTime > b.startTime) {
+
+                    return -1;
+
+                } else {
+
+                    return 0;
+
+                }
+
+            })
+
+            for (let i = 0; i < newHistory.length; i++) {
+
+                if (!newHistory[i].id) {
+
+                    newHistory[i].id = uuid.v4();
+
+                }
+
+            }
+
             storeData('history', newHistory);
             return newHistory;
         })

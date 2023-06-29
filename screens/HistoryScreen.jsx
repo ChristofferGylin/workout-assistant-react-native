@@ -4,6 +4,7 @@ import styles from '../styles';
 import { useContext, useEffect, useState } from 'react';
 import CustomHeader from '../components/CustomHeader';
 import { Context } from '../Context';
+import SessionItemHistory from '../components/SessionItemHistory';
 
 const HistoryScreen = ({ navigation }) => {
     const { history } = useContext(Context);
@@ -37,7 +38,8 @@ const HistoryScreen = ({ navigation }) => {
                     <FlatList
                         data={history}
                         renderItem={({ item }) => (
-                            <Text>{item.name}</Text>
+
+                            <SessionItemHistory title={item.name} id={item.id} navigation={navigation} startTime={item.startTime} totalTime={item.totalTime} />
                         )}
                         keyExtractor={item => `session#${item.id}`}
                     />
