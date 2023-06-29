@@ -11,7 +11,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const WorkoutResults = ({ navigation, route }) => {
 
-    const { updateNextSession, thisSession, addToHistory } = useContext(Context);
+    const { updateNextSession, thisSession, addToHistory, increaseWeight } = useContext(Context);
     const [result, setResult] = useState();
     const [congratulations, setCongratulations] = useState(true);
 
@@ -39,6 +39,7 @@ const WorkoutResults = ({ navigation, route }) => {
             for (let i = 0; i < thisSession.results.exercises.length; i++) {
 
                 const target = thisSession.results.exercises[i].reps;
+                let allTargetsMet = true;
 
                 const exercise = {
                     name: thisSession.results.exercises[i].name,
@@ -57,11 +58,20 @@ const WorkoutResults = ({ navigation, route }) => {
                     exercise.sets.push(set);
 
                     if (thisSession.results.exercises[i].setsReps[j].reps < target) {
-
+                        console.log('nope');
+                        console.log(`thisSession.results.exercises[${i}].setsReps[${j}].reps:`, thisSession.results.exercises[i].setsReps[j].reps);
+                        console.log(`target:`, target);
                         setCongratulations(false);
+                        allTargetsMet = false;
 
 
                     }
+
+                }
+
+                if (allTargetsMet && thisSession.results.exercises[i].weight) {
+
+                    increaseWeight(thisSession.session.id, thisSession.results.exercises[i].id)
 
                 }
 

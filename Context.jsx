@@ -266,6 +266,47 @@ const ContextProvider = ({ children }) => {
 
     }
 
+    const increaseWeight = (sessionId, exerciseId) => {
+        console.log('increasing weight')
+        console.log('sessionId:', sessionId)
+        console.log('exerciseId:', exerciseId)
+
+        setSessions(oldSessions => {
+
+            const newSessions = [...oldSessions];
+
+            for (let i = 0; i < newSessions.length; i++) {
+
+                if (newSessions[i].id === sessionId) {
+
+                    let foundIt = false;
+
+                    for (let j = 0; j < newSessions[i].exercises.length; j++) {
+
+                        if (newSessions[i].exercises[j].id === exerciseId) {
+
+                            newSessions[i].exercises[j].weight += newSessions[i].exercises[j].increment;
+                            foundIt = true;
+                            break;
+
+                        }
+
+                    }
+
+                    if (foundIt) {
+                        console.log('found it!')
+                        break;
+
+                    }
+                }
+            }
+
+            storeData('sessions', newSessions);
+            return newSessions;
+        });
+
+    };
+
     return (
         <Context.Provider value={{
             menuVisible,
@@ -287,6 +328,7 @@ const ContextProvider = ({ children }) => {
             thisSession,
             history,
             addToHistory,
+            increaseWeight,
 
         }}
         >
