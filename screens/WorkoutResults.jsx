@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from '../styles';
 import React, { useContext, useState } from 'react';
@@ -7,12 +7,20 @@ import uuid from 'react-native-uuid';
 import GenericButton from '../components/GenericButton';
 import { useFocusEffect } from '@react-navigation/native';
 import { millisToTime } from '../utils/millisToTime';
+import { FontAwesome } from '@expo/vector-icons';
 
 const WorkoutResults = ({ navigation, route }) => {
 
     const { updateNextSession, thisSession, addToHistory } = useContext(Context);
     const [result, setResult] = useState();
     const [congratulations, setCongratulations] = useState(true);
+
+    const handleClose = () => {
+
+        navigation.goBack();
+        navigation.navigate('Home')
+
+    }
 
     useFocusEffect(
 
@@ -87,15 +95,24 @@ const WorkoutResults = ({ navigation, route }) => {
 
     return (
 
-        <View style={[styles.container, styles.workoutContainer, { paddingTop: 40 }]}>
-
+        <View style={[styles.container, styles.workoutContainer, { paddingTop: 40, position: 'relative' }]}>
             <View style={[styles.innerContainer]}>
-                {congratulations ? <Text style={[styles.heading, styles.workoutTextColor]}>Congratulations! You reached all your targets</Text>
-                    : <Text style={[styles.heading, styles.workoutTextColor]}>All done!</Text>}
-                <Text style={[styles.heading, styles.workoutTextColor]}>{result.name}</Text>
-                <Text style={[styles.heading, styles.workoutTextColor, { fontVariant: ['tabular-nums'] }]}>Total time: {millisToTime(result.totalTime)}</Text>
 
-                <ScrollView style={{ width: '100%' }}>
+                {congratulations ?
+                    <View>
+                        <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>Congratulations!</Text>
+                        <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 30 }]}>You reached all your targets</Text>
+                    </View>
+                    : <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>All done!</Text>}
+
+
+                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.heading, styles.workoutTextColor, { fontVariant: ['tabular-nums'], fontWeight: 'bold' }]}>Total time:</Text>
+                    <Text style={[styles.heading, styles.workoutTextColor, { fontVariant: ['tabular-nums'] }]}>{millisToTime(result.totalTime)}</Text>
+                </View>
+
+
+                <ScrollView style={{ width: '100%', backgroundColor: 'rgb(251 146 60)' }}>
                     <View style={{ padding: 10, gap: 8 }}>
 
                         {result.exercises.map((exercise, index) => {

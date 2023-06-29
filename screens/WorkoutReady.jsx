@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from '../styles';
 import { useContext, useEffect, useState } from 'react';
@@ -9,11 +9,18 @@ import StartButton from '../components/StartButton';
 import getExerciseName from '../utils/getExerciseName';
 import uuid from 'react-native-uuid';
 import GenericButton from '../components/GenericButton';
+import { FontAwesome } from '@expo/vector-icons';
 
 const WorkoutReady = ({ navigation, route }) => {
 
     const { schedule, nextSession, sessions, exercises, updateThisSession, thisSession } = useContext(Context);
 
+    const handleClose = () => {
+
+        navigation.goBack();
+        navigation.navigate('Home')
+
+    }
 
     const buttonCallBack = () => {
 
@@ -97,11 +104,16 @@ const WorkoutReady = ({ navigation, route }) => {
 
     return (
 
-        <View style={[styles.container, styles.workoutContainer]}>
+        <View style={[styles.container, styles.workoutContainer, { position: 'relative' }]}>
 
             <View style={[styles.innerContainer, styles.workoutInputContainer]}>
+                <View style={{ alignItems: 'flex-end', marginBottom: 10, position: 'absolute', top: 30, right: 10 }}>
+                    <TouchableOpacity onPress={handleClose}>
+                        <FontAwesome name="close" size={24} color="rgb(255 237 213)" />
+                    </TouchableOpacity>
+                </View>
                 <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>Get ready!</Text>
-                <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].name}</Text>
+                <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 30, fontWeight: 'bold' }]}>{thisSession.session.exercises[thisSession.currentExercise].name}</Text>
                 {thisSession.session.exercises[thisSession.currentExercise].weight && <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].weight} kg</Text>}
                 <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].reps} reps</Text>
                 <Text style={[styles.heading, styles.workoutTextColor]}>Set {thisSession.currentSet + 1} of {thisSession.session.exercises[thisSession.currentExercise].sets}</Text>

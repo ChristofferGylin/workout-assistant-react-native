@@ -1,15 +1,11 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from '../styles';
 import { useContext, useEffect, useState } from 'react';
-import CustomHeader from '../components/CustomHeader';
 import { Context } from '../Context';
-import SettingsMenu from '../components/SettingsMenu';
-import StartButton from '../components/StartButton';
-import getExerciseName from '../utils/getExerciseName';
-import uuid from 'react-native-uuid';
 import GenericButton from '../components/GenericButton';
 import { millisToTime } from '../utils/millisToTime';
+import { FontAwesome } from '@expo/vector-icons';
 
 const WorkoutPaus = ({ navigation, route }) => {
 
@@ -18,6 +14,14 @@ const WorkoutPaus = ({ navigation, route }) => {
     const [buttonTitle, setButtonTitle] = useState('Skip rest');
     const [time, setTime] = useState('00:00:00');
     const [timerId, setTimerId] = useState();
+    const [encourage, setEncourage] = useState('Relax!')
+
+    const handleClose = () => {
+
+        navigation.goBack();
+        navigation.navigate('Home')
+
+    }
 
     const buttonCallBack = () => {
 
@@ -49,6 +53,7 @@ const WorkoutPaus = ({ navigation, route }) => {
 
             if (millis <= 0) {
                 setButtonTitle('Start next exercise')
+                setEncourage('No more rest!')
                 millis = 0;
                 finished = true;
 
@@ -89,8 +94,15 @@ const WorkoutPaus = ({ navigation, route }) => {
         <View style={[styles.container, styles.workoutContainer]}>
 
             <View style={[styles.innerContainer, styles.workoutInputContainer]}>
+                <View style={{ alignItems: 'flex-end', marginBottom: 10, position: 'absolute', top: 30, right: 10 }}>
+                    <TouchableOpacity onPress={handleClose}>
+                        <FontAwesome name="close" size={24} color="rgb(255 237 213)" />
+                    </TouchableOpacity>
+
+                </View>
+                <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>{encourage}</Text>
                 <Text style={[styles.heading, styles.workoutTextColor]}>Next exercise:</Text>
-                <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].name}</Text>
+                <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 30, fontWeight: 'bold' }]}>{thisSession.session.exercises[thisSession.currentExercise].name}</Text>
                 {thisSession.session.exercises[thisSession.currentExercise].weight && <Text style={[styles.heading, styles.workoutTextColor]}>{thisSession.session.exercises[thisSession.currentExercise].weight} kg</Text>}
                 <Text style={[styles.heading, styles.workoutTextColor]}>Set {thisSession.currentSet + 1} of {thisSession.session.exercises[thisSession.currentExercise].sets}</Text>
                 <GenericButton title={buttonTitle} callback={buttonCallBack} />

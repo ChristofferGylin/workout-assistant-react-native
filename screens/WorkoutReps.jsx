@@ -1,14 +1,22 @@
-import { Text, TextInput, TouchableWithoutFeedback, View, Keyboard } from 'react-native';
+import { Text, TextInput, TouchableWithoutFeedback, View, Keyboard, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from '../styles';
 import { useContext, useState } from 'react';
 import { Context } from '../Context';
 import GenericButton from '../components/GenericButton';
+import { FontAwesome } from '@expo/vector-icons';
 
 const WorkoutReps = ({ navigation, route }) => {
 
     const { updateNextSession, updateThisSession, thisSession } = useContext(Context);
     const [reps, setReps] = useState(`${thisSession.session.exercises[thisSession.currentExercise].reps}`)
+
+    const handleClose = () => {
+
+        navigation.goBack();
+        navigation.navigate('Home')
+
+    }
 
     const buttonCallBack = () => {
 
@@ -72,7 +80,13 @@ const WorkoutReps = ({ navigation, route }) => {
             <View style={[styles.container, styles.workoutContainer]}>
 
                 <View style={[styles.innerContainer, styles.workoutInputContainer]}>
-                    <Text style={[styles.heading, styles.workoutTextColor]}>How many reps did you do?</Text>
+                    <View style={{ alignItems: 'flex-end', marginBottom: 10, position: 'absolute', top: 30, right: 10 }}>
+                        <TouchableOpacity onPress={handleClose}>
+                            <FontAwesome name="close" size={24} color="rgb(255 237 213)" />
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={[styles.heading, styles.workoutTextColor, { fontSize: 50 }]}>How many reps did you do?</Text>
+
 
                     <TextInput
                         inputMode='numeric'
